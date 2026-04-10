@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lucky Mystery Box</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "Poppins", "sans-serif"],
+            },
+            colors: {
+              gold: {
+                50: "#fff8e6",
+                100: "#ffefbf",
+                200: "#ffe08a",
+                300: "#ffd257",
+                400: "#f6c344",
+                500: "#d4af37",
+                600: "#b88d1c",
+                700: "#8b6914",
+                800: "#5a430d",
+              },
+            },
+            boxShadow: {
+              glow: "0 0 30px rgba(212, 175, 55, 0.28)",
+              card: "0 10px 30px rgba(0,0,0,0.35), 0 0 25px rgba(212,175,55,0.08)",
+            },
+            backgroundImage: {
+              "gold-gradient":
+                "linear-gradient(135deg, #f6c344 0%, #d4af37 45%, #8b6914 100%)",
+              "card-glow":
+                "radial-gradient(circle at top, rgba(212,175,55,0.18), transparent 45%)",
+              "wa-gradient":
+                "linear-gradient(135deg, #25D366 0%, #42e37d 55%, #1faa52 100%)",
+            },
+            keyframes: {
+              floaty: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-8px)" },
+              },
+              pulseGlow: {
+                "0%, 100%": {
+                  boxShadow:
+                    "0 0 0 rgba(37,211,102,0.18), 0 0 22px rgba(37,211,102,0.25)",
+                },
+                "50%": {
+                  boxShadow:
+                    "0 0 0 rgba(37,211,102,0.25), 0 0 34px rgba(37,211,102,0.4)",
+                },
+              },
+            },
+            animation: {
+              floaty: "floaty 4s ease-in-out infinite",
+              pulseGlow: "pulseGlow 2.4s ease-in-out infinite",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background:
+          radial-gradient(circle at top, rgba(212, 175, 55, 0.08), transparent 24%),
+          radial-gradient(circle at bottom, rgba(37, 211, 102, 0.05), transparent 28%),
+          #050505;
+      }
+
+      .section-reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+
+      .section-reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .glass-card {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+      }
+
+      .gold-ring {
+        position: relative;
+      }
+
+      .gold-ring::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(246, 195, 68, 0.9), rgba(139, 105, 20, 0.65));
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+
+      .text-shimmer {
+        background: linear-gradient(90deg, #fff2bf, #f6c344, #fff2bf);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+    </style>
+  </head>
+  <body class="font-sans text-white selection:bg-gold-500/30">
+    <div class="fixed inset-x-0 top-0 z-40 border-b border-white/5 bg-black/35 backdrop-blur-xl">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+        <a href="#home" class="flex items-center gap-3">
+          <div
+            class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gold-gradient text-lg font-bold text-black shadow-glow"
+          >
+            🎁
+          </div>
+          <div>
+            <p class="text-sm font-semibold tracking-wide text-white">Lucky Mystery Box</p>
+            <p class="text-xs text-gold-200/80">Premium Surprise Deal</p>
+          </div>
+        </a>
+        <a
+          href="#order"
+          class="rounded-full bg-wa-gradient px-4 py-2 text-sm font-semibold text-white shadow-[0_0_30px_rgba(37,211,102,0.22)] transition duration-300 hover:-translate-y-0.5"
+        >
+          WhatsApp Order
+        </a>
+      </div>
+    </div>
+
+    <main id="home" class="pb-28 pt-20 sm:pt-24">
+      <section class="relative overflow-hidden px-4 pb-8 pt-8 sm:px-6 lg:px-8">
+        <div class="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2">
+          <div class="section-reveal order-2 lg:order-1">
+            <div
+              class="mb-4 inline-flex items-center gap-2 rounded-full border border-gold-400/20 bg-gold-400/10 px-3 py-1 text-xs font-medium text-gold-100 shadow-glow"
+            >
+              <span class="inline-block h-2 w-2 rounded-full bg-gold-300 animate-pulse"></span>
+              Limited Luxury Drop
+            </div>
+            <h1 class="max-w-xl text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
+              <span class="text-shimmer">🎁 Lucky Mystery Box</span>
+              <span class="mt-2 block text-white">খুলুন আর দেখুন কি আছে!</span>
+            </h1>
+            <p class="mt-4 max-w-lg text-base leading-7 text-white/75 sm:text-lg">
+              Choose your favorite mystery package and place your order instantly on
+              <span class="font-bold text-[#25D366]">WhatsApp</span>. Fast, easy, and premium
+              unboxing excitement in one click.
+            </p>
+            <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="#order"
+                class="inline-flex items-center justify-center rounded-full bg-wa-gradient px-6 py-3.5 text-base font-semibold text-white shadow-[0_0_35px_rgba(37,211,102,0.35)] transition duration-300 hover:-translate-y-1 hover:scale-[1.02]"
+              >
+                WhatsApp এ অর্ডার করুন
+              </a>
+              <a
+                href="#packages"
+                class="inline-flex items-center justify-center rounded-full border border-gold-400/30 bg-gold-400/10 px-6 py-3.5 text-base font-semibold text-gold-100 transition duration-300 hover:border-gold-400/50 hover:bg-gold-400/15"
+              >
+                প্যাকেজ দেখুন
+              </a>
+            </div>
+            <div class="mt-8 grid grid-cols-3 gap-3 text-center">
+              <div class="glass-card rounded-2xl p-3 shadow-card">
+                <p class="text-lg font-bold text-gold-300">6+</p>
+                <p class="text-xs text-white/60">Premium Items</p>
+              </div>
+              <div class="glass-card rounded-2xl p-3 shadow-card">
+                <p class="text-lg font-bold text-gold-300">24h</p>
+                <p class="text-xs text-white/60">Fast Delivery</p>
+              </div>
+              <div class="glass-card rounded-2xl p-3 shadow-card">
+                <p class="text-lg font-bold text-gold-300">4.9★</p>
+                <p class="text-xs text-white/60">Happy Buyers</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-reveal order-1 flex justify-center lg:order-2">
+            <div class="relative w-full max-w-md">
+              <div class="absolute inset-0 rounded-[2rem] bg-gold-400/15 blur-3xl"></div>
+              <div class="gold-ring glass-card relative overflow-hidden rounded-[2rem] p-5 shadow-glow">
+                <div
+                  class="absolute -top-10 left-1/2 h-32 w-32 -translate-x-1/2 rounded-full bg-gold-300/20 blur-3xl"
+                ></div>
+                <div
+                  class="relative flex min-h-[340px] flex-col items-center justify-center rounded-[1.5rem] bg-card-glow bg-[#0c0c0c] p-6 sm:min-h-[420px]"
+                >
+                  <div
+                    class="absolute right-6 top-6 rounded-full border border-gold-300/20 bg-gold-400/10 px-3 py-1 text-xs font-medium text-gold-100"
+                  >
+                    Premium Box
+                  </div>
+                  <div class="relative animate-floaty">
+                    <div class="absolute inset-0 scale-110 rounded-[2rem] bg-gold-400/20 blur-2xl"></div>
+                    <div
+                      class="relative flex h-52 w-56 flex-col justify-between rounded-[2rem] bg-gradient-to-br from-[#1f1b10] via-[#111111] to-[#34280e] p-5 shadow-[0_15px_40px_rgba(0,0,0,0.55)] sm:h-60 sm:w-64"
+                    >
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs uppercase tracking-[0.3em] text-gold-200/70">Luxury</span>
+                        <span
+                          class="rounded-full border border-gold-300/20 bg-gold-300/10 px-2 py-1 text-[10px] text-gold-100"
+                          >Mystery</span
+                        >
+                      </div>
+                      <div class="space-y-3">
+                        <div class="h-1.5 w-20 rounded-full bg-gold-gradient"></div>
+                        <h2 class="text-2xl font-bold leading-tight text-gold-100">Lucky Box</h2>
+                        <p class="text-sm text-white/60">Unbox surprise gadgets</p>
+                      </div>
+                      <div class="flex items-end justify-between">
+                        <div class="text-left">
+                          <p class="text-[11px] uppercase tracking-[0.2em] text-white/35">Starting at</p>
+                          <p class="text-xl font-bold text-gold-300">৳355</p>
+                        </div>
+                        <div class="h-12 w-12 rounded-2xl bg-gold-gradient shadow-glow"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-6 flex items-center gap-3">
+                    <div class="h-2 w-2 rounded-full bg-gold-300 animate-pulse"></div>
+                    <p class="text-sm text-white/65">Luxury gift-style packaging with golden glow</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="packages" class="px-4 py-8 sm:px-6 lg:px-8">
+        <div class="section-reveal mx-auto max-w-6xl">
+          <div class="mb-6 text-center">
+            <p
+              class="mb-2 inline-flex items-center gap-2 rounded-full border border-gold-400/20 bg-gold-400/10 px-3 py-1 text-xs text-gold-100"
+            >
+              Choose Your Package
+            </p>
+            <h2 class="text-2xl font-bold sm:text-3xl">Pick your Mystery Box edition</h2>
+            <p class="mx-auto mt-3 max-w-2xl text-white/70">
+              Multiple premium surprise packages are available based on your budget and excitement
+              level.
+            </p>
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+            <button
+              type="button"
+              data-package="Premium Collection - ৳355"
+              class="package-card gold-ring glass-card rounded-3xl p-5 text-left shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-glow"
+            >
+              <div class="mb-4 flex items-center justify-between">
+                <span class="rounded-full bg-white/5 px-3 py-1 text-xs text-gold-100">6 প্যাকেজ</span>
+                <span class="text-xl">🎁</span>
+              </div>
+              <h3 class="text-lg font-bold">Premium Collection</h3>
+              <p class="mt-2 text-sm text-white/65">কম দামে সারপ্রাইজের দারুণ সুযোগ!</p>
+              <div class="mt-5 text-3xl font-extrabold text-gold-300">৳355</div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center rounded-full border border-gold-300/20 bg-gold-400/10 px-4 py-3 font-semibold text-gold-100"
+                >Choose Plan</span
+              >
+            </button>
+
+            <button
+              type="button"
+              data-package="Exclusive Deal - ৳415"
+              class="package-card gold-ring glass-card rounded-3xl p-5 text-left shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-glow"
+            >
+              <div class="mb-4 flex items-center justify-between">
+                <span class="rounded-full bg-white/5 px-3 py-1 text-xs text-gold-100">7 প্যাকেজ</span>
+                <span class="text-xl">✨</span>
+              </div>
+              <h3 class="text-lg font-bold">Exclusive Deal</h3>
+              <p class="mt-2 text-sm text-white/65">একটু বেশি, কিন্তু গিফটও হবে আরও আকর্ষণীয়!</p>
+              <div class="mt-5 text-3xl font-extrabold text-gold-300">৳415</div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center rounded-full border border-gold-300/20 bg-gold-400/10 px-4 py-3 font-semibold text-gold-100"
+                >Choose Plan</span
+              >
+            </button>
+
+            <button
+              type="button"
+              data-package="Gold Edition - ৳475"
+              class="package-card gold-ring glass-card relative rounded-3xl p-5 text-left shadow-glow transition duration-300 hover:-translate-y-1 hover:shadow-[0_0_36px_rgba(212,175,55,0.35)]"
+            >
+              <div
+                class="absolute right-4 top-4 rounded-full bg-gold-gradient px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black"
+              >
+                Popular
+              </div>
+              <div class="mb-4 flex items-center justify-between">
+                <span class="rounded-full bg-white/5 px-3 py-1 text-xs text-gold-100">8 প্যাকেজ</span>
+                <span class="text-xl">🌟</span>
+              </div>
+              <h3 class="text-lg font-bold">Gold Edition</h3>
+              <p class="mt-2 text-sm text-white/65">ভ্যালু ফর মানি + স্পেশাল সারপ্রাইজ আইটেম!</p>
+              <div class="mt-5 text-3xl font-extrabold text-gold-300">৳475</div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center rounded-full bg-gold-gradient px-4 py-3 font-semibold text-black shadow-glow"
+                >Choose Plan</span
+              >
+            </button>
+
+            <button
+              type="button"
+              data-package="Diamond Choice - ৳530"
+              class="package-card gold-ring glass-card rounded-3xl p-5 text-left shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-glow"
+            >
+              <div class="mb-4 flex items-center justify-between">
+                <span class="rounded-full bg-white/5 px-3 py-1 text-xs text-gold-100">9 প্যাকেজ</span>
+                <span class="text-xl">💎</span>
+              </div>
+              <h3 class="text-lg font-bold">Diamond Choice</h3>
+              <p class="mt-2 text-sm text-white/65">প্রিমিয়াম লেভেলের গোপন চমক!</p>
+              <div class="mt-5 text-3xl font-extrabold text-gold-300">৳530</div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center rounded-full border border-gold-300/20 bg-gold-400/10 px-4 py-3 font-semibold text-gold-100"
+                >Choose Plan</span
+              >
+            </button>
+
+            <button
+              type="button"
+              data-package="Ultimate Surprise - ৳590"
+              class="package-card gold-ring glass-card rounded-3xl p-5 text-left shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-glow"
+            >
+              <div class="mb-4 flex items-center justify-between">
+                <span class="rounded-full bg-white/5 px-3 py-1 text-xs text-gold-100">10 প্যাকেজ</span>
+                <span class="text-xl">🚀</span>
+              </div>
+              <h3 class="text-lg font-bold">Ultimate Surprise</h3>
+              <p class="mt-2 text-sm text-white/65">সবচেয়ে বড় প্যাকেজ, সবচেয়ে বড় আনন্দ!</p>
+              <div class="mt-5 text-3xl font-extrabold text-gold-300">৳590</div>
+              <span
+                class="mt-5 inline-flex w-full items-center justify-center rounded-full border border-gold-300/20 bg-gold-400/10 px-4 py-3 font-semibold text-gold-100"
+                >Choose Plan</span
+              >
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="inside" class="px-4 py-8 sm:px-6 lg:px-8">
+        <div class="section-reveal mx-auto max-w-6xl">
+          <div class="mb-6 text-center">
+            <p
+              class="mb-2 inline-flex items-center gap-2 rounded-full border border-gold-400/20 bg-gold-400/10 px-3 py-1 text-xs text-gold-100"
+            >
+              Premium Items Collection
+            </p>
+            <h2 class="text-2xl font-bold sm:text-3xl">বক্সের ভিতরে কি আছে</h2>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+            <div
+              class="gold-ring glass-card rounded-3xl p-4 text-center shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-glow"
+            >
+              <div
+                class="mx-auto mb-3 flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gold-400/10 p-2"
+              >
+                <img src="assets/earbuds.png" alt="Earbuds" class="h-full w-full object-contain" />
+              </div>
+              <h3 class="font-semibold">Earbuds</h3>
+              <p class="mt-1 text-xs text-white/55">Premium sound</p>
+            </div>
+
+            <div
+              class="gold-ring glass-card rounded-3xl p-4 text-center shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-glow"
+            >
+              <div
+                class="mx-auto mb-3 flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gold-400/10 p-2"
+              >
+                <img src="assets/watch.png" alt="Smart Watch" class="h-full w-full object-contain" />
+              </div>
+              <h3 class="font-semibold">Smart Watch</h3>
+              <p class="mt-1 text-xs text-white/55">Elegant wearable</p>
+            </div>
+
+            <div
+              class="gold-ring glass-card rounded-3xl p-4 text-center shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-glow"
+            >
+              <div
+                class="mx-auto mb-3 flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gold-400/10 p-2"
+              >
+                <img src="assets/powerbank.png" alt="Power Bank" class="h-full w-full object-contain" />
+              </div>
+              <h3 class="font-semibold">Power Bank</h3>
+              <p class="mt-1 text-xs text-white/55">Travel ready</p>
+            </div>
+
+            <div
+              class="gold-ring glass-card rounded-3xl p-4 text-center shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-glow"
+            >
+              <div
+                class="mx-auto mb-3 flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gold-400/10 p-2"
+              >
+                <img src="assets/charger.png" alt="Charger" class="h-full w-full object-contain" />
+              </div>
+              <h3 class="font-semibold">Charger</h3>
+              <p class="mt-1 text-xs text-white/55">Fast charging</p>
+            </div>
+
+            <div
+              class="gold-ring glass-card rounded-3xl p-4 text-center shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-glow"
+            >
+              <div
+                class="mx-auto mb-3 flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gold-400/10 p-2"
+              >
+                <img
+                  src="assets/headphones.png"
+                  alt="Headphones"
+                  class="h-full w-full object-contain"
+                />
+              </div>
+              <h3 class="font-semibold">Headphones</h3>
+              <p class="mt-1 text-xs text-white/55">Immersive audio</p>
+            </div>
+
+            <div
+              class="gold-ring glass-card rounded-3xl p-4 text-center shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-glow"
+            >
+              <div
+                class="mx-auto mb-3 flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gold-400/10 p-2"
+              >
+                <img src="assets/cable.png" alt="Cable" class="h-full w-full object-contain" />
+              </div>
+              <h3 class="font-semibold">Cable</h3>
+              <p class="mt-1 text-xs text-white/55">Durable quality</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-4 py-8 sm:px-6 lg:px-8">
+        <div class="section-reveal mx-auto max-w-6xl">
+          <div class="mb-6 text-center">
+            <p
+              class="mb-2 inline-flex items-center gap-2 rounded-full border border-gold-400/20 bg-gold-400/10 px-3 py-1 text-xs text-gold-100"
+            >
+              Customer Love
+            </p>
+            <h2 class="text-2xl font-bold sm:text-3xl">What buyers are saying</h2>
+          </div>
+          <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <div class="glass-card rounded-3xl p-5 shadow-card">
+              <div class="mb-4 flex items-center gap-3">
+                <div
+                  class="flex h-12 w-12 items-center justify-center rounded-full bg-gold-gradient font-bold text-black"
+                >
+                  SA
+                </div>
+                <div>
+                  <p class="font-semibold">Sadia A.</p>
+                  <p class="text-xs text-white/50">Verified Buyer</p>
+                </div>
+              </div>
+              <p class="mb-3 text-gold-300">★★★★★</p>
+              <p class="text-sm leading-6 text-white/75">
+                "Packaging ta onek premium lagse. Earbuds paichi, totally worth it!"
+              </p>
+            </div>
+
+            <div class="glass-card rounded-3xl p-5 shadow-card">
+              <div class="mb-4 flex items-center gap-3">
+                <div
+                  class="flex h-12 w-12 items-center justify-center rounded-full bg-gold-gradient font-bold text-black"
+                >
+                  RH
+                </div>
+                <div>
+                  <p class="font-semibold">Rafi H.</p>
+                  <p class="text-xs text-white/50">Verified Buyer</p>
+                </div>
+              </div>
+              <p class="mb-3 text-gold-300">★★★★★</p>
+              <p class="text-sm leading-6 text-white/75">
+                "Looks expensive, feels premium. Delivery was fast and the box was exciting to open."
+              </p>
+            </div>
+
+            <div class="glass-card rounded-3xl p-5 shadow-card">
+              <div class="mb-4 flex items-center gap-3">
+                <div
+                  class="flex h-12 w-12 items-center justify-center rounded-full bg-gold-gradient font-bold text-black"
+                >
+                  NM
+                </div>
+                <div>
+                  <p class="font-semibold">Nusrat M.</p>
+                  <p class="text-xs text-white/50">Verified Buyer</p>
+                </div>
+              </div>
+              <p class="mb-3 text-gold-300">★★★★★</p>
+              <p class="text-sm leading-6 text-white/75">
+                "399 taka te eto classy experience expect kori nai. Loved the smart gadget vibe."
+              </p>
+            </div>
+
+            <div class="glass-card rounded-3xl p-5 shadow-card">
+              <div class="mb-4 flex items-center gap-3">
+                <div
+                  class="flex h-12 w-12 items-center justify-center rounded-full bg-gold-gradient font-bold text-black"
+                >
+                  TI
+                </div>
+                <div>
+                  <p class="font-semibold">Tanvir I.</p>
+                  <p class="text-xs text-white/50">Verified Buyer</p>
+                </div>
+              </div>
+              <p class="mb-3 text-gold-300">★★★★☆</p>
+              <p class="text-sm leading-6 text-white/75">
+                "Nice concept! Box open korar por surprise feel ta really fun chilo."
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-4 py-8 sm:px-6 lg:px-8">
+        <div class="section-reveal mx-auto max-w-4xl">
+          <div class="gold-ring glass-card rounded-[2rem] p-6 text-center shadow-glow sm:p-8">
+            <p
+              class="mb-2 inline-flex items-center gap-2 rounded-full border border-gold-400/20 bg-gold-400/10 px-3 py-1 text-xs text-gold-100"
+            >
+              Limited Time Offer
+            </p>
+            <h2 class="text-2xl font-bold sm:text-3xl">অফার সীমিত</h2>
+            <p class="mx-auto mt-3 max-w-xl text-white/70">
+              Grab your Lucky Mystery Box before the premium launch offer ends.
+            </p>
+            <div id="countdown" class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4 shadow-card">
+                <div id="days" class="text-3xl font-extrabold text-gold-300 sm:text-4xl">00</div>
+                <div class="mt-1 text-xs uppercase tracking-[0.22em] text-white/45">Days</div>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4 shadow-card">
+                <div id="hours" class="text-3xl font-extrabold text-gold-300 sm:text-4xl">00</div>
+                <div class="mt-1 text-xs uppercase tracking-[0.22em] text-white/45">Hours</div>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4 shadow-card">
+                <div id="minutes" class="text-3xl font-extrabold text-gold-300 sm:text-4xl">00</div>
+                <div class="mt-1 text-xs uppercase tracking-[0.22em] text-white/45">Minutes</div>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-4 shadow-card">
+                <div id="seconds" class="text-3xl font-extrabold text-gold-300 sm:text-4xl">00</div>
+                <div class="mt-1 text-xs uppercase tracking-[0.22em] text-white/45">Seconds</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-4 py-8 sm:px-6 lg:px-8">
+        <div class="section-reveal mx-auto max-w-4xl">
+          <div class="gold-ring glass-card rounded-[2rem] p-6 shadow-card sm:p-8">
+            <div class="mb-6 text-center">
+              <p
+                class="mb-2 inline-flex items-center gap-2 rounded-full border border-gold-400/20 bg-gold-400/10 px-3 py-1 text-xs text-gold-100"
+              >
+                Return Policy
+              </p>
+              <h2 class="text-2xl font-bold sm:text-3xl">রিটার্ন নীতিমালা</h2>
+              <p class="mt-3 text-white/70">
+                আপনার সন্তুষ্টিই আমাদের অগ্রাধিকার। নিচের শর্তগুলো অনুসরণ করে সহজেই সাপোর্ট
+                পাওয়া যাবে।
+              </p>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-card">
+                <div
+                  class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-400/10 text-2xl"
+                >
+                  🎥
+                </div>
+                <h3 class="font-semibold">Unboxing Video Required</h3>
+                <p class="mt-2 text-sm leading-6 text-white/70">
+                  পার্সেল গ্রহণের সময় সম্পূর্ণ
+                  <span class="font-semibold text-gold-200">আনবক্সিং ভিডিও</span> ধারণ করা
+                  বাধ্যতামূলক।
+                </p>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-card">
+                <div
+                  class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-400/10 text-2xl"
+                >
+                  ⏰
+                </div>
+                <h3 class="font-semibold">24 Hour Support Window</h3>
+                <p class="mt-2 text-sm leading-6 text-white/70">
+                  ডেলিভারির <span class="font-semibold text-gold-200">২৪ ঘণ্টার মধ্যে</span>
+                  যেকোনো সমস্যা সাপোর্ট টিমকে জানাতে হবে।
+                </p>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-card">
+                <div
+                  class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-400/10 text-2xl"
+                >
+                  🚚
+                </div>
+                <h3 class="font-semibold">Pickup Timeline</h3>
+                <p class="mt-2 text-sm leading-6 text-white/70">
+                  রিটার্ন রিকোয়েস্ট অনুমোদনের পর
+                  <span class="font-semibold text-gold-200">২–৩ কার্যদিবসের মধ্যে</span> পিকআপ
+                  সম্পন্ন করা হবে।
+                </p>
+              </div>
+              <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-card">
+                <div
+                  class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-400/10 text-2xl"
+                >
+                  💰
+                </div>
+                <h3 class="font-semibold">Refund Process</h3>
+                <p class="mt-2 text-sm leading-6 text-white/70">
+                  রিটার্নকৃত পণ্য গ্রহণ ও যাচাই শেষে
+                  <span class="font-semibold text-gold-200">রিফান্ড প্রসেস করা হবে</span>।
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="order" class="px-4 py-8 sm:px-6 lg:px-8">
+        <div class="section-reveal mx-auto max-w-7xl">
+          <div class="overflow-hidden rounded-[2rem] border border-[#5f2a70] bg-[#f7f7f7] text-[#1f1f1f] shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+            <div class="grid lg:grid-cols-[1.12fr_0.88fr]">
+              <div class="p-5 sm:p-8 lg:p-10">
+                <h2 class="text-3xl font-extrabold tracking-tight text-[#161616]">আপনার তথ্য দিন</h2>
+
+                <form id="orderForm" class="mt-8 space-y-6">
+                  <div>
+                    <label for="name" class="mb-2 block text-base font-medium text-[#2c2c2c]"
+                      >নাম লিখুন <span class="text-red-500">*</span></label
+                    >
+                    <input
+                      id="name"
+                      type="text"
+                      placeholder="আপনার নাম লিখুন"
+                      class="w-full rounded-xl border border-[#2e2e2e] bg-white px-5 py-4 text-lg text-[#1a1a1a] outline-none transition focus:border-[#7a2cff] focus:ring-4 focus:ring-[#7a2cff]/10"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label for="address" class="mb-2 block text-base font-medium text-[#2c2c2c]"
+                      >ঠিকানা লিখুন <span class="text-red-500">*</span></label
+                    >
+                    <input
+                      id="address"
+                      type="text"
+                      placeholder="বাড়ি / রোড / থানা / জেলা"
+                      class="w-full rounded-xl border border-[#2e2e2e] bg-white px-5 py-4 text-lg text-[#1a1a1a] outline-none transition focus:border-[#7a2cff] focus:ring-4 focus:ring-[#7a2cff]/10"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label for="phone" class="mb-2 block text-base font-medium text-[#2c2c2c]"
+                      >মোবাইল নাম্বার লিখুন <span class="text-red-500">*</span></label
+                    >
+                    <input
+                      id="phone"
+                      type="tel"
+                      placeholder="১১ ডিজিটের নাম্বার"
+                      class="w-full rounded-xl border border-[#2e2e2e] bg-white px-5 py-4 text-lg text-[#1a1a1a] outline-none transition focus:border-[#7a2cff] focus:ring-4 focus:ring-[#7a2cff]/10"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label for="package" class="mb-2 block text-base font-medium text-[#2c2c2c]"
+                      >প্যাকেজ নির্বাচন করুন <span class="text-red-500">*</span></label
+                    >
+                    <select
+                      id="package"
+                      class="w-full rounded-xl border border-[#2e2e2e] bg-white px-5 py-4 text-lg text-[#1a1a1a] outline-none transition focus:border-[#7a2cff] focus:ring-4 focus:ring-[#7a2cff]/10"
+                      required
+                    >
+                      <option value="Premium Collection - ৳355">Premium Collection - ৳355</option>
+                      <option value="Exclusive Deal - ৳415">Exclusive Deal - ৳415</option>
+                      <option value="Gold Edition - ৳475" selected>Gold Edition - ৳475</option>
+                      <option value="Diamond Choice - ৳530">Diamond Choice - ৳530</option>
+                      <option value="Ultimate Surprise - ৳590">Ultimate Surprise - ৳590</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <h3 class="mb-4 text-[2rem] font-bold text-[#2a2a2a]">Shipping</h3>
+                    <div class="rounded-xl border border-[#d9d9d9] bg-[#fafafa] px-5 py-4">
+                      <div class="flex items-center justify-between gap-4 text-lg text-[#4a4a4a]">
+                        <span>বাংলাদেশের যেকোনো প্রান্তে:</span>
+                        <span id="shippingCost" class="font-medium">99.00৳</span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <div class="bg-[#fcfcfc] p-5 sm:p-8 lg:border-l lg:border-[#ececec] lg:p-10">
+                <h2 class="text-3xl font-extrabold tracking-tight text-[#161616]">আপনার অর্ডার</h2>
+
+                <div class="mt-10 border-b border-dashed border-[#d8d8d8] pb-4">
+                  <div class="grid grid-cols-[1fr_auto] gap-4 text-[1.15rem] font-medium text-[#333]">
+                    <span>Product</span>
+                    <span>Subtotal</span>
+                  </div>
+                </div>
+
+                <div class="border-b border-dashed border-[#d8d8d8] py-4">
+                  <div class="grid grid-cols-[1fr_auto] gap-4 text-[1.05rem] leading-7 text-[#444]">
+                    <div>
+                      <span id="summaryProductName">Daraz Mystery Box BD - Gold Edition</span>
+                    </div>
+                    <div class="whitespace-nowrap">
+                      × 1&nbsp;&nbsp;<span id="summarySubtotalTop">475.00৳</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-4 py-4 text-[1.05rem] text-[#444]">
+                  <div class="flex items-center justify-between gap-4">
+                    <span>Subtotal</span>
+                    <span id="summarySubtotal">475.00৳</span>
+                  </div>
+                  <div class="flex items-center justify-between gap-4">
+                    <span>Shipping</span>
+                    <span id="summaryShipping">99.00৳</span>
+                  </div>
+                  <div class="flex items-center justify-between gap-4 text-[1.35rem] font-extrabold text-[#222]">
+                    <span>Total</span>
+                    <span id="summaryTotal">574.00৳</span>
+                  </div>
+                </div>
+
+                <div class="mt-8 rounded-none bg-[#f3f3f3] p-4 sm:rounded-lg">
+                  <label class="flex cursor-pointer items-center gap-3 text-[1.05rem] font-medium text-[#333]">
+                    <input type="radio" checked class="h-4 w-4 accent-[#ef5a2a]" />
+                    <span>ক্যাশ অন ডেলিভারি</span>
+                  </label>
+                  <div class="relative mt-4 rounded bg-[#ededed] px-4 py-4 text-[1rem] text-[#555]">
+                    হাতে পণ্য পেয়ে মূল্য পরিশোধ করুন।
+                    <div class="absolute -top-2 left-8 h-4 w-4 rotate-45 bg-[#ededed]"></div>
+                  </div>
+                </div>
+
+                <p class="mt-4 text-sm leading-6 text-[#666]">
+                  Your personal data will be used to process your order, support your experience
+                  throughout this website, and for other purposes described in our privacy policy.
+                </p>
+
+                <button
+                  id="whatsappOrderBtn"
+                  type="submit"
+                  form="orderForm"
+                  class="mt-6 flex w-full items-center justify-center gap-3 rounded-2xl bg-[#ff1e1e] px-6 py-5 text-xl font-bold text-white shadow-[0_18px_35px_rgba(255,30,30,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#f01414]"
+                >
+                  <span class="text-2xl">🔒</span>
+                  <span>অর্ডার করুন</span>
+                  <span id="buttonTotal">574.00৳</span>
+                </button>
+
+                <a
+                  id="secondaryWhatsappBtn"
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-wa-gradient px-6 py-4 text-lg font-bold text-white shadow-[0_10px_30px_rgba(37,211,102,0.22)] transition hover:-translate-y-0.5"
+                >
+                  <span>💬</span>
+                  সরাসরি WhatsApp এ অর্ডার
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <a
+      id="floatingWhatsappBtn"
+      href="#order"
+      aria-label="Order on WhatsApp"
+      class="fixed bottom-24 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full border border-[#25D366]/30 bg-[#25D366] text-2xl text-white shadow-[0_10px_30px_rgba(37,211,102,0.35)] transition duration-300 hover:scale-105 sm:bottom-6 sm:right-6"
+      >💬</a
+    >
+
+    <div
+      class="fixed bottom-0 left-0 right-0 z-50 border-t border-gold-300/10 bg-black/80 px-4 py-3 backdrop-blur-xl sm:hidden"
+    >
+      <a
+        href="#order"
+        class="flex w-full items-center justify-center rounded-full bg-wa-gradient px-5 py-3.5 text-base font-bold text-white shadow-[0_0_35px_rgba(37,211,102,0.35)] animate-pulseGlow"
+      >
+        WhatsApp Order
+      </a>
+    </div>
+
+    <script>
+      const PACKAGE_PRICES = {
+        "Premium Collection - ৳355": 355,
+        "Exclusive Deal - ৳415": 415,
+        "Gold Edition - ৳475": 475,
+        "Diamond Choice - ৳530": 530,
+        "Ultimate Surprise - ৳590": 590,
+      };
+
+      const SHIPPING_COST = 99;
+
+      const revealElements = document.querySelectorAll(".section-reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.12 }
+      );
+
+      revealElements.forEach((element) => observer.observe(element));
+
+      const offerDeadline = new Date();
+      offerDeadline.setDate(offerDeadline.getDate() + 3);
+      offerDeadline.setHours(23, 59, 59, 999);
+
+      function updateCountdown() {
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minutesEl = document.getElementById("minutes");
+        const secondsEl = document.getElementById("seconds");
+        if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+        const now = Date.now();
+        const distance = offerDeadline.getTime() - now;
+
+        if (distance <= 0) {
+          daysEl.textContent = "00";
+          hoursEl.textContent = "00";
+          minutesEl.textContent = "00";
+          secondsEl.textContent = "00";
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        daysEl.textContent = String(days).padStart(2, "0");
+        hoursEl.textContent = String(hours).padStart(2, "0");
+        minutesEl.textContent = String(minutes).padStart(2, "0");
+        secondsEl.textContent = String(seconds).padStart(2, "0");
+      }
+
+      function getFieldValue(id, fallback) {
+        const el = document.getElementById(id);
+        if (!el) return fallback;
+        const value = typeof el.value === "string" ? el.value.trim() : "";
+        return value || fallback;
+      }
+
+      function formatBdt(value) {
+        return Number(value).toFixed(2) + "৳";
+      }
+
+      function getSelectedPackage() {
+        return getFieldValue("package", "Gold Edition - ৳475");
+      }
+
+      function getSubtotal() {
+        return PACKAGE_PRICES[getSelectedPackage()] || 475;
+      }
+
+      function getTotal() {
+        return getSubtotal() + SHIPPING_COST;
+      }
+
+      function updateOrderSummary() {
+        const selectedPackage = getSelectedPackage();
+        const packageNameOnly = selectedPackage.split(" - ")[0];
+        const subtotal = getSubtotal();
+        const total = getTotal();
+
+        const summaryProductName = document.getElementById("summaryProductName");
+        const summarySubtotalTop = document.getElementById("summarySubtotalTop");
+        const summarySubtotal = document.getElementById("summarySubtotal");
+        const summaryShipping = document.getElementById("summaryShipping");
+        const summaryTotal = document.getElementById("summaryTotal");
+        const buttonTotal = document.getElementById("buttonTotal");
+        const shippingCost = document.getElementById("shippingCost");
+
+        if (summaryProductName)
+          summaryProductName.textContent = "Daraz Mystery Box BD - " + packageNameOnly;
+        if (summarySubtotalTop) summarySubtotalTop.textContent = formatBdt(subtotal);
+        if (summarySubtotal) summarySubtotal.textContent = formatBdt(subtotal);
+        if (summaryShipping) summaryShipping.textContent = formatBdt(SHIPPING_COST);
+        if (summaryTotal) summaryTotal.textContent = formatBdt(total);
+        if (buttonTotal) buttonTotal.textContent = formatBdt(total);
+        if (shippingCost) shippingCost.textContent = formatBdt(SHIPPING_COST);
+      }
+
+      function buildWhatsAppMessage() {
+        const name = getFieldValue("name", "N/A");
+        const phone = getFieldValue("phone", "N/A");
+        const address = getFieldValue("address", "N/A");
+        const selectedPackage = getSelectedPackage();
+        const subtotal = getSubtotal();
+        const total = getTotal();
+
+        const text = [
+          "Hello, আমি Lucky Mystery Box অর্ডার করতে চাই.",
+          "",
+          "Package: " + selectedPackage,
+          "Name: " + name,
+          "Phone: " + phone,
+          "Address: " + address,
+          "Product Price: " + formatBdt(subtotal),
+          "Shipping: " + formatBdt(SHIPPING_COST),
+          "Total: " + formatBdt(total),
+          "",
+          "Please confirm my order on WhatsApp.",
+        ].join("\n");
+
+        return "https://wa.me/8801890273571?text=" + encodeURIComponent(text);
+      }
+
+      function updateWhatsAppLinks() {
+        const link = buildWhatsAppMessage();
+        const floatingBtn = document.getElementById("floatingWhatsappBtn");
+        const secondaryBtn = document.getElementById("secondaryWhatsappBtn");
+
+        if (floatingBtn) floatingBtn.href = link;
+        if (secondaryBtn) secondaryBtn.href = link;
+
+        updateOrderSummary();
+      }
+
+      function sendToWhatsApp(event) {
+        event.preventDefault();
+        window.open(buildWhatsAppMessage(), "_blank");
+      }
+
+      function selectPackage(packageName) {
+        const packageSelect = document.getElementById("package");
+        if (!packageSelect) return;
+        packageSelect.value = packageName;
+        updateWhatsAppLinks();
+        const orderSection = document.getElementById("order");
+        if (orderSection) {
+          orderSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function runBasicTests() {
+        console.assert(
+          typeof buildWhatsAppMessage === "function",
+          "buildWhatsAppMessage should exist"
+        );
+        console.assert(typeof sendToWhatsApp === "function", "sendToWhatsApp should exist");
+        console.assert(
+          buildWhatsAppMessage().indexOf("wa.me/8801890273571") > -1,
+          "WhatsApp URL should include base number"
+        );
+        console.assert(
+          getTotal() === getSubtotal() + SHIPPING_COST,
+          "Total should include shipping"
+        );
+      }
+
+      const orderForm = document.getElementById("orderForm");
+      if (orderForm) orderForm.addEventListener("submit", sendToWhatsApp);
+
+      ["name", "phone", "address", "package"].forEach((id) => {
+        const input = document.getElementById(id);
+        if (!input) return;
+        input.addEventListener("input", updateWhatsAppLinks);
+        input.addEventListener("change", updateWhatsAppLinks);
+      });
+
+      document.querySelectorAll(".package-card").forEach((card) => {
+        card.addEventListener("click", () => selectPackage(card.dataset.package));
+      });
+
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+      updateWhatsAppLinks();
+      runBasicTests();
+    </script>
+  </body>
+</html>
